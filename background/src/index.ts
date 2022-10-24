@@ -1,4 +1,9 @@
-import { storage, WebRequest, webRequest } from "webextension-polyfill";
+import {
+  runtime,
+  storage,
+  WebRequest,
+  webRequest,
+} from "webextension-polyfill";
 
 let blocklist = [""];
 let codeTime = 0;
@@ -29,8 +34,7 @@ function SetupBlocker() {
 function Block(): WebRequest.BlockingResponse | void {
   if (codeTime < dailyGoal)
     return {
-      redirectUrl:
-        "data:text/html;charset=utf-8;base64,PGh0bWw+DQo8aGVhZD4NCjxzdHlsZT4NCkBpbXBvcnQgdXJsKCJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PVBvcHBpbnM6d2dodEA0MDA7NTAwOzYwMDs3MDA7ODAwJmRpc3BsYXk9c3dhcCIpOw0KDQpodG1sLA0KYm9keSB7DQogIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgxMDBkZWcsICMzYjQyNTIsICMyZjM0NDEpOw0KICBjb2xvcjogd2hpdGU7DQogIGZvbnQtd2VpZ2h0OiA2MDA7DQogIG1hcmdpbjogMDsNCiAgd2lkdGg6IDEwMCU7DQogIGhlaWdodDogMTAwJTsNCiAgcGFkZGluZzogMDsNCiAgZm9udC1mYW1pbHk6ICJQb3BwaW5zIiwgc2Fucy1zZXJpZjsNCn0NCg0KaDEgew0KcG9zaXRpb246IGFic29sdXRlOw0KdG9wOiA1MCU7DQpsZWZ0OiA1MCU7DQp0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTsNCn0NCjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keT4NCjxoMT5LZWVwIG9uIGNvZGluZyE8L2gxPg0KPC9ib2R5Pg0KPC9odG1sPg==",
+      redirectUrl: runtime.getURL("block-page/dist/index.html"),
     };
 }
 

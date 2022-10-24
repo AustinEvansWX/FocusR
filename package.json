@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:background:dev": "cd background && npm run dev",
+    "start:blockpage:dev": "cd block-page && npm run dev",
     "start:popup:dev": "cd popup && npm run dev",
     "start:extension:dev": "web-ext run --source-dir ."
   },

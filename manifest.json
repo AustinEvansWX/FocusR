@@ -3,6 +3,7 @@
   "name": "Focusr",
   "version": "1.0",
   "description": "Blocks sites until you have coded for a certain amount of time",
+  "web_accessible_resources": ["block-page/dist/index.html"],
   "background": {
     "page": "background/dist/index.html"
   },

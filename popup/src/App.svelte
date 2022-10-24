@@ -13,9 +13,10 @@ main {
 
 .header {
   padding: 1rem;
-  background: #2e3440;
+  background: #292e39;
+  box-shadow: inset 0 -10px 15px -20px black;
 
-  h2 {
+  h1 {
     margin: 0;
   }
 }
@@ -46,7 +47,7 @@ main {
 
 <main>
   <div class="header">
-    <h2>FocusR</h2>
+    <h1>FocusR</h1>
   </div>
 
   <div class="content">

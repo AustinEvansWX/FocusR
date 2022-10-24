@@ -4,40 +4,79 @@ import { onMount } from "svelte";
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 
+document.body.onresize = Resize;
+
 onMount(() => {
-  canvas.width = canvas.clientWidth;
-  canvas.height = canvas.clientHeight;
   context = canvas.getContext("2d");
+  Resize();
   Render();
 });
 
 function Render() {
+  SetColor("transparent");
+  DrawRect(0, 0, canvas.width, canvas.height);
+
+  const midpointX = canvas.width / 2;
+  const midpointY = canvas.height / 2;
   const size = Math.min(canvas.width, canvas.height) / 2.5;
-  context.fillStyle = "#88c0d0";
+
+  // SetColor("#2e3440");
+  // DrawCircle(midpointX, midpointY, size, 0.75 * Math.PI, 0.25 * Math.PI);
+
+  // SetColor("#46b5f4");
+  // DrawCircle(midpointX, midpointY, size, 0.75 * Math.PI, 1.25 * Math.PI);
+
+  // SetColor("transparent");
+  // DrawCircle(midpointX, midpointY, size - 15, 0, 2 * Math.PI);
+
+  const res = 150;
+
+  SetColor("#292e39");
+  for (let i = 0; i < res; i++) {
+    const percentage = i / (res - 1);
+    const radian = 1.5 * Math.PI * percentage + Math.PI * 0.75;
+    const x = Math.cos(radian) * size;
+    const y = Math.sin(radian) * size;
+    DrawCircle(midpointX + x, midpointY + y, 10, 0, 2 * Math.PI);
+  }
+
+  SetColor("#46b5f4");
+  for (let i = 0; i < res; i++) {
+    const percentage = i / (res - 1);
+    const radian = 0.5 * Math.PI * percentage + Math.PI * 0.75;
+    const x = Math.cos(radian) * size;
+    const y = Math.sin(radian) * size;
+    DrawCircle(midpointX + x, midpointY + y, 10, 0, 2 * Math.PI);
+  }
+}
+
+function SetColor(color: string) {
+  context.fillStyle = color;
+}
+
+function DrawRect(x: number, y: number, w: number, h: number) {
+  context.fillRect(x, y, w, h);
+}
+
+function DrawCircle(
+  x: number,
+  y: number,
+  radius: number,
+  startAngle: number,
+  endAngle: number
+) {
   context.beginPath();
-  context.arc(canvas.width / 2, canvas.height / 2, size, 0, 2 * Math.PI);
+  context.moveTo(x, y);
+  context.arc(x, y, radius, startAngle, endAngle);
+  context.lineTo(x, y);
   context.closePath();
   context.fill();
+}
 
-  context.fillStyle = "#3b4252";
-
-  context.beginPath();
-  context.moveTo(canvas.width / 2, canvas.height / 2);
-  context.arc(
-    canvas.width / 2,
-    canvas.height / 2,
-    size + 1,
-    0.25 * Math.PI,
-    0.75 * Math.PI
-  );
-  context.lineTo(canvas.width / 2, canvas.height / 2);
-  context.closePath();
-  context.fill();
-
-  context.beginPath();
-  context.arc(canvas.width / 2, canvas.height / 2, size - 15, 0, 2 * Math.PI);
-  context.closePath();
-  context.fill();
+function Resize() {
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.parentElement.clientHeight - 6.5;
+  Render();
 }
 </script>
 
@@ -49,12 +88,14 @@ function Render() {
   grid-template-rows: auto 1fr;
 }
 
-h3 {
+h2 {
   margin: 0;
 }
 
 .canvas {
   position: relative;
+  min-height: 0px;
+  box-sizing: border-box;
 
   strong {
     position: absolute;
@@ -68,14 +109,15 @@ h3 {
   canvas {
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
   }
 }
 </style>
 
 <div class="status">
-  <h3>Status</h3>
+  <h2>Status</h2>
   <div class="canvas">
-    <strong>100% Complete</strong>
+    <strong>34%</strong>
     <canvas bind:this="{canvas}"> </canvas>
   </div>
 </div>

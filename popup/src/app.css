@@ -2,7 +2,7 @@
 
 html,
 body {
-  background: #3b4252;
+  background: linear-gradient(100deg, #3b4252, #2f3441);
   color: white;
   font-weight: 600;
   margin: 0;

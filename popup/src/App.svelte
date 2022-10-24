@@ -28,6 +28,7 @@ main {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: "blocklist status" "blocklist settings";
+  min-height: 0;
 
   div {
     &:nth-of-type(1) {

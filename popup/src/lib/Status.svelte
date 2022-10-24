@@ -20,15 +20,6 @@ function Render() {
   const midpointY = canvas.height / 2;
   const size = Math.min(canvas.width, canvas.height) / 2.5;
 
-  // SetColor("#2e3440");
-  // DrawCircle(midpointX, midpointY, size, 0.75 * Math.PI, 0.25 * Math.PI);
-
-  // SetColor("#46b5f4");
-  // DrawCircle(midpointX, midpointY, size, 0.75 * Math.PI, 1.25 * Math.PI);
-
-  // SetColor("transparent");
-  // DrawCircle(midpointX, midpointY, size - 15, 0, 2 * Math.PI);
-
   const res = 150;
 
   SetColor("#292e39");

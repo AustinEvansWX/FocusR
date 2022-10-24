@@ -8,6 +8,12 @@ interface Site {
 
 let blocklist: Site[] = [];
 
+(async () => {
+  blocklist = ((await storage.local.get("blocklist"))["blocklist"] || []).map(
+    (site: string) => ({ site, editing: false })
+  );
+})();
+
 function EditSite(site: Site) {
   site.editing = false;
   Update();
@@ -148,7 +154,7 @@ function Update() {
 
 .site {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto auto;
   gap: 1rem;
   padding: 1rem;
   background: #353b49;
@@ -166,6 +172,7 @@ function Update() {
     border: none;
     outline: none;
     border: 2px solid #292e39;
+    width: calc(100% - 4px - 2rem);
     padding: 0.5rem 1rem;
     border-radius: 5px;
     background: #292e39;

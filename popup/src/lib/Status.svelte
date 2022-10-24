@@ -25,8 +25,7 @@ async function StorageUpdated() {
 }
 
 function Render() {
-  SetColor("transparent");
-  DrawRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
   const midpointX = canvas.width / 2;
   const midpointY = canvas.height / 2;
@@ -62,10 +61,6 @@ function Render() {
 
 function SetColor(color: string) {
   context.fillStyle = color;
-}
-
-function DrawRect(x: number, y: number, w: number, h: number) {
-  context.fillRect(x, y, w, h);
 }
 
 function DrawCircle(

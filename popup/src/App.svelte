@@ -4,6 +4,26 @@ import Settings from "./lib/Settings.svelte";
 import Status from "./lib/Status.svelte";
 </script>
 
+<main>
+  <div class="header">
+    <h1>FocusR</h1>
+  </div>
+
+  <div class="content">
+    <div>
+      <Blocklist />
+    </div>
+
+    <div>
+      <Status />
+    </div>
+
+    <div>
+      <Settings />
+    </div>
+  </div>
+</main>
+
 <style lang="scss">
 main {
   height: 100%;
@@ -25,7 +45,7 @@ main {
   display: grid;
   padding: 1rem;
   gap: 1rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 5fr 3fr;
   grid-template-rows: 1fr 1fr;
   grid-template-areas: "blocklist status" "blocklist settings";
   min-height: 0;
@@ -45,23 +65,3 @@ main {
   }
 }
 </style>
-
-<main>
-  <div class="header">
-    <h1>FocusR</h1>
-  </div>
-
-  <div class="content">
-    <div>
-      <Blocklist />
-    </div>
-
-    <div>
-      <Status />
-    </div>
-
-    <div>
-      <Settings />
-    </div>
-  </div>
-</main>

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { onMount } from "svelte";
+import { storage } from "webextension-polyfill";
 
 let wakaTimeAPIKeyInput: HTMLInputElement;
 let dailyGoalInput: HTMLInputElement;
@@ -18,19 +19,25 @@ function ShowNotification() {
   }, 3e3);
 }
 
-function UpdateWakaTimeAPIKey() {
+async function UpdateWakaTimeAPIKey() {
+  await storage.local.set({ "wakatime-api-key": wakaTimeAPIKeyInput.value });
   notificationText = "WakaTime API Key";
   ShowNotification();
 }
 
-function UpdateDailyGoal() {
+async function UpdateDailyGoal() {
+  const dailyGoal = Math.max(1, +dailyGoalInput.value || 1);
+  dailyGoalInput.value = dailyGoal.toString();
+  await storage.local.set({ "daily-goal": dailyGoal });
   notificationText = "Daily Goal";
   ShowNotification();
 }
 
 onMount(async () => {
-  wakaTimeAPIKeyInput.value = "";
-  dailyGoalInput.value = "0";
+  wakaTimeAPIKeyInput.value =
+    (await storage.local.get("wakatime-api-key"))["wakatime-api-key"] || "";
+  dailyGoalInput.value =
+    "" + ((await storage.local.get("daily-goal"))["daily-goal"] || "1");
 });
 </script>
 

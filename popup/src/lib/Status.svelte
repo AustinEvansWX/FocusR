@@ -18,9 +18,9 @@ onMount(() => {
 });
 
 async function StorageUpdated() {
-  const codeTime = (await storage.local.get("codeTime"))["codeTime"] || 0;
-  const dailyGoal = (await storage.local.get("dailyGoal"))["dailyGoal"] || 1;
-  percentage = +(codeTime / dailyGoal).toFixed(0);
+  const codeTime = (await storage.local.get("code-time"))["code-time"] || 0;
+  const dailyGoal = (await storage.local.get("daily-goal"))["daily-goal"] || 1;
+  percentage = +Math.min((codeTime / dailyGoal) * 100, 100).toFixed(0);
   Render();
 }
 

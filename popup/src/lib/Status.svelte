@@ -6,6 +6,8 @@ let context: CanvasRenderingContext2D;
 
 document.body.onresize = Resize;
 
+let percentage = 50;
+
 onMount(() => {
   context = canvas.getContext("2d");
   Resize();
@@ -24,8 +26,8 @@ function Render() {
 
   SetColor("#292e39");
   for (let i = 0; i < res; i++) {
-    const percentage = i / (res - 1);
-    const radian = 1.5 * Math.PI * percentage + Math.PI * 0.75;
+    const step = i / (res - 1);
+    const radian = 1.5 * Math.PI * step + Math.PI * 0.75;
     const x = Math.cos(radian) * size;
     const y = Math.sin(radian) * size;
     DrawCircle(midpointX + x, midpointY + y, 10, 0, 2 * Math.PI);
@@ -33,8 +35,8 @@ function Render() {
 
   SetColor("#46b5f4");
   for (let i = 0; i < res; i++) {
-    const percentage = i / (res - 1);
-    const radian = 0.5 * Math.PI * percentage + Math.PI * 0.75;
+    const step = i / (res - 1);
+    const radian = 1.5 * Math.PI * (percentage / 100) * step + Math.PI * 0.75;
     const x = Math.cos(radian) * size;
     const y = Math.sin(radian) * size;
     DrawCircle(midpointX + x, midpointY + y, 10, 0, 2 * Math.PI);
@@ -74,7 +76,7 @@ function Resize() {
 <div class="status">
   <h2>Status</h2>
   <div class="canvas">
-    <strong>34%</strong>
+    <strong>{percentage}%</strong>
     <canvas bind:this="{canvas}"> </canvas>
   </div>
 </div>

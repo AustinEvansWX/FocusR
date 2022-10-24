@@ -28,7 +28,7 @@ function ClearSites() {
 
 <div class="blocklist">
   <div class="header">
-    <h2>Block List - {blocklist.length}</h2>
+    <h2>Blocklist - {blocklist.length}</h2>
     <a
       target="_blank"
       rel="noreferrer"

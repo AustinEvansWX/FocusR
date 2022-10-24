@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Focusr",
+  "version": "1.0",
+  "description": "Blocks sites until you have coded for a certain amount of time",
+  "background": {
+    "page": "background/dist/index.html"
+  },
+  "permissions": ["webRequest", "webRequestBlocking", "<all_urls>", "storage"],
+  "browser_action": {
+    "default_icon": "icon-64.png",
+    "default_title": "Focusr",
+    "default_popup": "popup/dist/index.html"
+  }
+}

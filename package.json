@@ -1,0 +1,13 @@
+{
+  "name": "focusr",
+  "version": "1.0.0",
+  "description": "Blocks sites until you have coded a set amount of time",
+  "main": "index.js",
+  "scripts": {
+    "start:background:dev": "cd background && npm run dev",
+    "start:popup:dev": "cd popup && npm run dev",
+    "start:extension:dev": "web-ext run --source-dir ."
+  },
+  "author": "",
+  "license": "ISC"
+}

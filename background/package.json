@@ -1,0 +1,19 @@
+{
+  "name": "background",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch --base=background/dist",
+    "build": "vite build --base=background/dist",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
+  },
+  "dependencies": {
+    "@types/webextension-polyfill": "^0.9.1",
+    "webextension-polyfill": "^0.10.0"
+  }
+}

@@ -1,15 +1,43 @@
 <script lang="ts">
+import { onMount } from "svelte";
+
+let wakaTimeAPIKeyInput: HTMLInputElement;
+let dailyGoalInput: HTMLInputElement;
+
 let show = false;
+let notification = false;
+let notificationText = "";
+let fadeNotificationTimeout: NodeJS.Timeout;
 
-let notification = true;
+function ShowNotification() {
+  notification = true;
+  if (fadeNotificationTimeout) clearTimeout(fadeNotificationTimeout);
+  fadeNotificationTimeout = setTimeout(() => {
+    fadeNotificationTimeout = null;
+    notification = false;
+  }, 3e3);
+}
 
-function UpdateDailyGoal() {}
+function UpdateWakaTimeAPIKey() {
+  notificationText = "WakaTime API Key";
+  ShowNotification();
+}
+
+function UpdateDailyGoal() {
+  notificationText = "Daily Goal";
+  ShowNotification();
+}
+
+onMount(async () => {
+  wakaTimeAPIKeyInput.value = "";
+  dailyGoalInput.value = "0";
+});
 </script>
 
 <div class="settings">
   <div class="notification {notification ? 'show' : 'hide'}">
     <i class="fa-solid fa-check"></i>
-    <strong>Daily Goal Updated</strong>
+    <strong>{notificationText} Updated</strong>
   </div>
 
   <h2>Settings</h2>
@@ -19,18 +47,21 @@ function UpdateDailyGoal() {}
       <button on:click="{() => (show = !show)}"
         >{show ? "Hide" : "Show"}</button>
       <input
+        bind:this="{wakaTimeAPIKeyInput}"
         type="{show ? 'text' : 'password'}"
         placeholder="API Key"
-        id="api-key" />
+        id="api-key"
+        on:change="{UpdateWakaTimeAPIKey}" />
     </div>
 
     <div class="input">
       <label for="goal">Daily Goal (minutes)</label>
       <input
+        bind:this="{dailyGoalInput}"
         type="number"
         placeholder="Goal"
         id="goal"
-        on:change="{() => (notification = !notification)}" />
+        on:change="{UpdateDailyGoal}" />
     </div>
   </div>
 </div>

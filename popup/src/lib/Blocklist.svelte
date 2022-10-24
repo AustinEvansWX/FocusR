@@ -1,4 +1,6 @@
 <script lang="ts">
+import { storage } from "webextension-polyfill";
+
 interface Site {
   site: string;
   editing: boolean;
@@ -8,21 +10,28 @@ let blocklist: Site[] = [];
 
 function EditSite(site: Site) {
   site.editing = false;
-  blocklist = blocklist;
+  Update();
 }
 
 function AddSite() {
   blocklist.push({ site: "", editing: true });
-  blocklist = blocklist;
+  Update();
 }
 
 function DeleteSite(i: number) {
   blocklist.splice(i, 1);
-  blocklist = blocklist;
+  Update();
 }
 
 function ClearSites() {
   blocklist = [];
+  Update();
+}
+
+function Update() {
+  const sites = blocklist.map((site) => site.site);
+  storage.local.set({ blocklist: sites });
+  blocklist = blocklist;
 }
 </script>
 
@@ -132,6 +141,7 @@ function ClearSites() {
       left: 50%;
       transform: translate(-50%, -50%);
       color: rgb(200, 200, 200);
+      white-space: nowrap;
     }
   }
 }

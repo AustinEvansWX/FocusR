@@ -1,18 +1,28 @@
 <script lang="ts">
 import { onMount } from "svelte";
+import { storage } from "webextension-polyfill";
 
 let canvas: HTMLCanvasElement;
 let context: CanvasRenderingContext2D;
 
 document.body.onresize = Resize;
 
-let percentage = 50;
+let percentage = 0;
+
+storage.local.onChanged.addListener(StorageUpdated);
 
 onMount(() => {
   context = canvas.getContext("2d");
   Resize();
-  Render();
+  StorageUpdated();
 });
+
+async function StorageUpdated() {
+  const codeTime = (await storage.local.get("codeTime"))["codeTime"] || 0;
+  const dailyGoal = (await storage.local.get("dailyGoal"))["dailyGoal"] || 1;
+  percentage = +(codeTime / dailyGoal).toFixed(0);
+  Render();
+}
 
 function Render() {
   SetColor("transparent");
@@ -39,6 +49,13 @@ function Render() {
     const radian = 1.5 * Math.PI * (percentage / 100) * step + Math.PI * 0.75;
     const x = Math.cos(radian) * size;
     const y = Math.sin(radian) * size;
+
+    if (i == res - 1) {
+      SetColor("white");
+      DrawCircle(midpointX + x, midpointY + y, 12, 0, 2 * Math.PI);
+      continue;
+    }
+
     DrawCircle(midpointX + x, midpointY + y, 10, 0, 2 * Math.PI);
   }
 }

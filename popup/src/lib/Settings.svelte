@@ -1,8 +1,66 @@
 <script lang="ts">
 let show = false;
+
+let notification = true;
+
+function UpdateDailyGoal() {}
 </script>
 
+<div class="settings">
+  <div class="notification {notification ? 'show' : 'hide'}">
+    <i class="fa-solid fa-check"></i>
+    <strong>Daily Goal Updated</strong>
+  </div>
+
+  <h2>Settings</h2>
+  <div class="inputs">
+    <div class="input">
+      <label for="api-key">WakaTime API Key</label>
+      <button on:click="{() => (show = !show)}"
+        >{show ? "Hide" : "Show"}</button>
+      <input
+        type="{show ? 'text' : 'password'}"
+        placeholder="API Key"
+        id="api-key" />
+    </div>
+
+    <div class="input">
+      <label for="goal">Daily Goal (minutes)</label>
+      <input
+        type="number"
+        placeholder="Goal"
+        id="goal"
+        on:change="{() => (notification = !notification)}" />
+    </div>
+  </div>
+</div>
+
 <style lang="scss">
+.notification {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #353b49;
+  height: 48px;
+  border-radius: 5px;
+  display: grid;
+  align-items: center;
+  padding: 0 1rem;
+  font-size: 14px;
+  border-left: 5px solid #5cb89f;
+  grid-template-columns: auto auto;
+  gap: 0.25rem;
+  transition: all ease 0.25s;
+
+  &.show {
+    opacity: 1;
+  }
+
+  &.hide {
+    opacity: 0;
+  }
+}
+
 .settings {
   gap: 1rem;
   display: grid;
@@ -63,23 +121,3 @@ h2 {
   }
 }
 </style>
-
-<div class="settings">
-  <h2>Settings</h2>
-  <div class="inputs">
-    <div class="input">
-      <label for="api-key">WakaTime API Key</label>
-      <button on:click="{() => (show = !show)}"
-        >{show ? "Hide" : "Show"}</button>
-      <input
-        type="{show ? 'text' : 'password'}"
-        placeholder="API Key"
-        id="api-key" />
-    </div>
-
-    <div class="input">
-      <label for="goal">Daily Goal (minutes)</label>
-      <input type="number" placeholder="Goal" id="goal" />
-    </div>
-  </div>
-</div>

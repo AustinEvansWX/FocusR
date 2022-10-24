@@ -71,6 +71,14 @@ function Resize() {
 }
 </script>
 
+<div class="status">
+  <h2>Status</h2>
+  <div class="canvas">
+    <strong>34%</strong>
+    <canvas bind:this="{canvas}"> </canvas>
+  </div>
+</div>
+
 <style lang="scss">
 .status {
   gap: 1rem;
@@ -104,11 +112,3 @@ h2 {
   }
 }
 </style>
-
-<div class="status">
-  <h2>Status</h2>
-  <div class="canvas">
-    <strong>34%</strong>
-    <canvas bind:this="{canvas}"> </canvas>
-  </div>
-</div>

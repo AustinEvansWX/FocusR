@@ -26,6 +26,63 @@ function ClearSites() {
 }
 </script>
 
+<div class="blocklist">
+  <div class="header">
+    <h2>Block List - {blocklist.length}</h2>
+    <a
+      target="_blank"
+      rel="noreferrer"
+      href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns#examples"
+      >Examples</a>
+  </div>
+
+  <div class="list">
+    <div class="scroll-container">
+      {#if blocklist.length > 0}
+        {#each blocklist as site, i}
+          <div class="site">
+            <input
+              bind:value="{site.site}"
+              type="text"
+              readonly="{!site.editing}"
+              placeholder="Enter site match pattern" />
+            <div class="actions">
+              {#if site.editing}
+                <i
+                  class="fa-solid fa-check submit"
+                  on:keydown="{() => EditSite(site)}"
+                  on:click="{() => EditSite(site)}"></i>
+              {:else}
+                <i
+                  class="fa-solid fa-pen edit"
+                  on:keydown="{() => (site.editing = true)}"
+                  on:click="{() => (site.editing = true)}"></i>
+              {/if}
+              <i
+                class="fa-solid fa-trash delete"
+                on:keydown="{() => DeleteSite(i)}"
+                on:click="{() => DeleteSite(i)}"></i>
+            </div>
+          </div>
+        {/each}
+      {:else}
+        <p class="none">No sites on your blocklist</p>
+      {/if}
+    </div>
+  </div>
+
+  <div class="controls">
+    <button on:click="{AddSite}">
+      <i class="fa-solid fa-plus"></i>
+      Add
+    </button>
+    <button on:click="{ClearSites}">
+      <i class="fa-solid fa-trash"></i>
+      Clear
+    </button>
+  </div>
+</div>
+
 <style lang="scss">
 .blocklist {
   height: 100%;
@@ -221,60 +278,3 @@ function ClearSites() {
   }
 }
 </style>
-
-<div class="blocklist">
-  <div class="header">
-    <h2>Block List - {blocklist.length}</h2>
-    <a
-      target="_blank"
-      rel="noreferrer"
-      href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Match_patterns#examples"
-      >Examples</a>
-  </div>
-
-  <div class="list">
-    <div class="scroll-container">
-      {#if blocklist.length > 0}
-        {#each blocklist as site, i}
-          <div class="site">
-            <input
-              bind:value="{site.site}"
-              type="text"
-              readonly="{!site.editing}"
-              placeholder="Enter site match pattern" />
-            <div class="actions">
-              {#if site.editing}
-                <i
-                  class="fa-solid fa-check submit"
-                  on:keydown="{() => EditSite(site)}"
-                  on:click="{() => EditSite(site)}"></i>
-              {:else}
-                <i
-                  class="fa-solid fa-pen edit"
-                  on:keydown="{() => (site.editing = true)}"
-                  on:click="{() => (site.editing = true)}"></i>
-              {/if}
-              <i
-                class="fa-solid fa-trash delete"
-                on:keydown="{() => DeleteSite(i)}"
-                on:click="{() => DeleteSite(i)}"></i>
-            </div>
-          </div>
-        {/each}
-      {:else}
-        <p class="none">No sites on your blocklist</p>
-      {/if}
-    </div>
-  </div>
-
-  <div class="controls">
-    <button on:click="{AddSite}">
-      <i class="fa-solid fa-plus"></i>
-      Add
-    </button>
-    <button on:click="{ClearSites}">
-      <i class="fa-solid fa-trash"></i>
-      Clear
-    </button>
-  </div>
-</div>
